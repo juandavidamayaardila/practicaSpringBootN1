@@ -11,5 +11,11 @@ import java.util.ArrayList;
 @Repository
 public interface RoleRepository extends JpaRepository<RoleModel, Long> {
 
+    /**
+     * Metodo que permite buscar por nombre.
+     *
+     * @param name criterio de busqeuda
+     * @return lista con los resultados.
+     */
     public abstract ArrayList<RoleModel> findByName(String name);
 }

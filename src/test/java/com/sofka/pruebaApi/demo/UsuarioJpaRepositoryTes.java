@@ -24,11 +24,19 @@ public class UsuarioJpaRepositoryTes {
     @Autowired
     private RoleRepository roleRepository;
 
+    /**
+     * Probamos si el metodo de guardar funciona correctamente
+     * ademas creamos varios roles para asignar y probar la
+     * persistencia decuada.
+     */
     public void cuandoSeGuardaUnUsuario(){
         UsuarioModel carolina = new UsuarioModel("Carolina","caro@gmail.com","3");
         UsuarioModel jesus = new UsuarioModel("jesus","jesus@gmail.com","3");
         UsuarioModel lina = new UsuarioModel("lina","lina@gmail.com","1");
 
+        /*
+        Creamos los roles y los guardamos
+         */
         RoleModel dba = new RoleModel("DBA");
         RoleModel master = new RoleModel("Scrum Master");
         RoleModel lider = new RoleModel("Lider");
@@ -38,6 +46,10 @@ public class UsuarioJpaRepositoryTes {
         master = roleRepository.save(master);
         lider = roleRepository.save(lider);
 
+        /*
+        Asignamos roles a los usuarios, vamos que se puede
+        asignar a un usuario varios roles y un rol a varios usuario
+         */
         carolina.getRoleModels().add(dba);
         carolina.getRoleModels().add(lider);
 
@@ -55,8 +67,13 @@ public class UsuarioJpaRepositoryTes {
         assertNotNull(jesus);
         assertNotNull(lina);
 
+        List<UsuarioModel> list = (List<UsuarioModel>) userRepo.findAll();
+        assertEquals(3, list.size());
     }
 
+    /**
+     * Probamos la busqeuda pro nombre, y compramos los resultados.
+     */
     @Test
     public void cuandoSeBuscaPorName(){
 
